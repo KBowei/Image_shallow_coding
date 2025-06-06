@@ -716,13 +716,13 @@ void entropyCoding(std::vector<std::vector<int32_t>> const waveletCoeff, BitOutp
 				if (height == 1)
 				{
 					// for the lossy mode, tileheight = 1 skip H0 bitIndex<=3
-					if (!((subband_width[1] < col < subband_width[0]) && (bitIndex <= 3))){
+					if (!((subband_width[1] < col) && (col < subband_width[0]) && (bitIndex <= 3))){
 						write_flag = true;
 					}
 				}
 				else{
 					// for the lossy mode, tileheight != 1 skip HH0 bitIndex<=1
-					if (!((subband_height[1] < row < subband_height[0]) && (subband_width[1] < col < subband_width[0]) && (bitIndex <= 1))){
+					if (!((subband_height[1] < row) && (row < subband_height[0]) && (subband_width[1] < col) && (col < subband_width[0]) && (bitIndex <= 1))){
 						write_flag = true;
 					}
 				}
@@ -809,12 +809,12 @@ void entropyDecoding(BitInputStream &inFileBin, std::vector<std::vector<int32_t>
 				int col = i % width;
 				//skip mode keep the same as encode
 				if (height == 1){
-					if (!((subband_width[1] < col < subband_width[0]) && (bitIndex <= 3))){
+					if (!((subband_width[1] < col) && (col < subband_width[0]) && (bitIndex <= 3))){
 						read_flag = true;
 					}
 				}
 				else{
-					if (!((subband_height[1] < row < subband_height[0]) && (subband_width[1] < col < subband_width[0]) && (bitIndex <= 1))){
+					if (!((subband_height[1] < row) && (row < subband_height[0]) && (subband_width[1] < col) && (col < subband_width[0]) && (bitIndex <= 1))){
 						read_flag = true;
 					}
 				}
